@@ -37,7 +37,10 @@ release.
 
 ### Changed
 - Disabled SURF algorithm for findfeatures, latest version of opencv no longer provides SURF as part of the base library [#3885](https://github.com/USGS-Astrogeology/ISIS3/issues/3885)
-
+- Changed caminfo's parameter default values for MAXEMISSION and MAXINCIDENCE to be
+synchronized with footprintinit default values of the same parameters.
+This corrects inconsistencies of footprint generation failing in caminfo
+but passing in footprintinit. [#4651](https://github.com/USGS-Astrogeology/ISIS3/issues/4651).
 
 ### Added
 - Added the USECAMSTATSTBL option to caminfo. This allows caminfo to extract existing
@@ -48,6 +51,8 @@ Keywords when running CAMSTATS.  [#3605](https://github.com/USGS-Astrogeology/IS
 - Added slope, local normal, and ellipsoid normal calculations to phocube. [#3635](https://github.com/USGS-Astrogeology/ISIS3/issues/3645)
 - Added additional translation files for TGO CaSSiS in order to support PSA compliant labels. [#4567](https://github.com/USGS-Astrogeology/ISIS3/issues/4567)
 - Added support for KaguyaTC SP Support data ingest. [#4668](https://github.com/USGS-Astrogeology/ISIS3/issues/4668)
+- Added examples to the jigsaw documentation. [#4718](https://github.com/USGS-Astrogeology/ISIS3/issues/4718)
+- Added ALLDNS option to phocube. [#3877](https://github.com/USGS-Astrogeology/ISIS3/issues/3877)
 
 ### Deprecated
 - Deprecated edrget as discussed in [#3313](https://github.com/USGS-Astrogeology/ISIS3/issues/3313).
