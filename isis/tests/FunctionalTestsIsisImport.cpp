@@ -232,10 +232,6 @@ End)";
   EXPECT_EQ(archiveGroup["ObservationId"][0].toStdString(), "CRUS_000000_505_1");
 }
 
-
-
-
-
 TEST_F(TempTestingFiles, FunctionalTestIsisImportKaguyaTC) {
   std::istringstream PvlInput(R"(
                       Object = IsisCube
@@ -470,7 +466,7 @@ TEST_F(TempTestingFiles, FunctionalTestIsisImportKaguyaTC) {
 
   PvlGroup truthDimensions = truth.findGroup("Dimensions", Isis::Plugin::Traverse);
   PvlGroup truthInstrument = truth.findGroup("Instrument", Isis::Plugin::Traverse);
-  
+
   PvlGroup outputDimensions = output.findGroup("Dimensions", Isis::Plugin::Traverse);
   PvlGroup outputInstrument = output.findGroup("Instrument", Isis::Plugin::Traverse);
 
