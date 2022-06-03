@@ -97,14 +97,26 @@ namespace Isis {
    * @return @b Pvl
    */
   Pvl History::ReturnHist() {
+    // cout << "in ReturnHist" << endl;
     Pvl pvl;
+    // cout <<"PVL IS after inital creation \n-------------->\n" << pvl << "\n<-----------------" << endl;
     stringstream os;
-    for (int i = 0; i < p_bufferSize; i++) os << p_histBuffer[i];
-
-    for (int i = 0; i < p_history.objects(); i++) {
-      os << std::endl << p_history.object(i);
+    if (p_history.objects() > 0){
+      for (int i = 0; i < p_bufferSize; i++){
+            // cout << "|" << p_histBuffer[i] << "|" << endl;
+            os << p_histBuffer[i];
+            // cout << os.str() << "\n--------------------------------------------------"<< endl;
+          }
+      // cout << "os is: " << os.str() << endl;
+      // cout << "\n\nAbout to loop" << endl;
+      // cout << p_history.objects() << endl;
+      for (int i = 0; i < p_history.objects(); i++) {
+        os << std::endl << p_history.object(i);
+      }
+      // cout << "os is now: " << os.str() << endl;
+      os >> pvl;
     }
-    os >> pvl;
+    // cout <<"PVL IS before return: \n-------------->\n" << pvl << "\n<-----------------" << endl; 
     return pvl;
   }
 }

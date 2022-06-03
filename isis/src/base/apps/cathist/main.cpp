@@ -26,9 +26,31 @@ void IsisMain() {
   }
 
   // Extract history from file
+  // cout << "trying to get the history from the file via a Blob" << endl;
   Blob historyBlob("IsisCube", "History", fromfile.expanded());
+  // cout << "got the blob\nTrying to create a History obj from it now" << endl;
   History hist(historyBlob);
-  Pvl pvl = hist.ReturnHist();
+  // cout << "history obj made\n" << endl;
+  // cout << historyBlob.getBuffer() << endl;
+  // cout << "Creating a pvl from the history" << endl;
+  Pvl pvl = hist.ReturnHist(); // this is where it's failing
+  // cout << "pvl created:\n----------------\\|/\n" << pvl << pvl.objects() << "\n/|\\----------------" << endl;
+
+  if(pvl.objects() == 0){
+    // historyBlob >> pvl;
+    char *temp = historyBlob.getBuffer();
+    std::string mystring(temp);
+    cout << sizeof(mystring) <<","<<mystring.size() << endl;
+    cout << mystring << endl;
+    Blob newBlob("CorruptedHist", "String");
+    newBlob.setData(temp, mystring.size());
+    // pvl.fromString(temp);
+    // cout << "new blob data:\n" << newBlob.getBuffer() << endl;
+    newBlob.Write(fromfile.toString());
+    History newHist(newBlob);
+    pvl = newHist.ReturnHist();
+  }
+
 
   // Print full history
   if(mode == "FULL") {
@@ -59,9 +81,11 @@ void IsisMain() {
         text = new TextFile(tofile.expanded(),"overwrite");
       }
     }
+    cout << "\n\nhere\n\n" << endl;
     for(int i = 0; i < pvl.objects(); ++i) {
       QString all = pvl.object(i).name() + " ";
       PvlGroup user = pvl.object(i).findGroup("UserParameters");
+      cout << "all: " << all << endl;
       for(int j = 0; j < user.keywords(); ++j) {
         ostringstream os;
         os << user[j];
